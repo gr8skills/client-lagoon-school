@@ -1,13 +1,38 @@
-import React, {useEffect, useState} from 'react';
-import styled from 'styled-components';
-import Backdrop from '../../../../Assets/Backdrop.png'
-import { subRoute } from './Acaitems';
-import Holder from '../../../../Assets/ExplaoreTwo.png'
+
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import Backdrop from "../../../../Assets/Backdrop.png";
+import { subRoute } from "./Acaitems";
+import Holder from "../../../../Assets/ExplaoreTwo.png";
 import "./fullCalendar.css";
-import {api} from "../../../../misc/api";
+import { api } from "../../../../misc/api";
 
 export default function AcademicFacilities() {
   const currentPath = window.location.pathname;
+  const [pageData, setPageData] = useState("");
+  const [imgList, setImgList] = useState([]);
+  const [noteData, setNoteData] = useState({});
+
+  const fetchPageData = () => {
+    api
+      .get("facility-index")
+      .then((res) => {
+        const abridgePageData = res.data;
+        console.log(abridgePageData);
+        setPageData(abridgePageData);
+      })
+      .catch(console.log);
+  };
+  useEffect(() => {
+    fetchPageData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  useEffect(() => {
+    if (pageData !== "") {
+      setImgList(pageData.images);
+      setNoteData(pageData.note);
+    }
+  }, [pageData]);
 
     const [pageData, setData] = useState('');
     const fetchData = () => {
@@ -124,7 +149,13 @@ export default function AcademicFacilities() {
   return (
     <Container props={pageData}>
       <div className="placeholder2">
-        <img src={ `${process.env.REACT_APP_SERVER_URL}/images/${pageData?.banner}`??Backdrop} alt="placeholder" />
+        <img
+          src={
+            `${process.env.REACT_APP_SERVER_URL}/images/${noteData.banner}` ??
+            Backdrop
+          }
+          alt="placeholder"
+        />
         <div className="overlay">
           <ul>
             {subRoute?.map((sub, idx) => {
@@ -170,107 +201,75 @@ export default function AcademicFacilities() {
             <h2>{pageData?.other_titles_1}</h2>
           </span>
 
-    <h4>
-
-    <span dangerouslySetInnerHTML={{__html:pageData?.content}}></span>
-
-    </h4>
-
-
-
-
+          <h4>
+            <span
+              dangerouslySetInnerHTML={{ __html: noteData?.content }}
+            ></span>
+          </h4>
         </div>
         <div className="conimages">
-          <div style={fac1}>
-            <h4>Computer lab</h4>
-          </div>
-          <div style={fac2}>
-            <h4>Facility</h4>
-          </div>{" "}
-          <div style={fac12}>
-            <h4>Facility</h4>
-          </div>{" "}
-          <div className="fac3" style={fac3}>
-            <h4>Facility</h4>
-          </div>{" "}
-          <div className="fac4" style={fac4}>
-            <h4>Facility</h4>
-          </div>{" "}
-          <div className="fac5" style={fac5}>
-            <h4>Facility</h4>
-          </div>{" "}
-          <div className="fac6" style={fac6}>
-            <h4>Facility</h4>
-          </div>{" "}
-          <div className="fac7" style={fac7}>
-            <h4>Facility</h4>
-          </div>{" "}
-          <div className="fac8" style={fac8}>
-            <h4>Facility</h4>
-          </div>{" "}
-          <div className="fac9" style={fac9}>
-            <h4>Facility</h4>
-          </div>{" "}
-          <div className="fac10" style={fac10}>
-            <h4>Facility</h4>
-          </div>{" "}
-          <div className="fac11" style={fac11}>
-            <h4>Facility</h4>
-          </div>{" "}
+          {imgList.map(({ id, title, image_path }) => {
+            return (
+              <div
+                style={{
+                  backgroundImage: `url(${process.env.REACT_APP_SERVER_URL}/images/${image_path})`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+              >
+                <h4>{title}</h4>
+              </div>
+            );
+          })}
         </div>
       </div>
     </Container>
   );
 }
 
-
-
-
 const Container = styled.section`
+  .placeholder2 {
+    height: 37rem;
+    position: relative;
 
- 
-
-  .placeholder2{
-    height:37rem ;
-    position:relative ;
-
-    img{
-      width:100% ;
-      height:100% ;
-      object-fit:cover ;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
-    .overlay{
-      position:absolute ;
-      top:0 ;
-      background-color:rgba(0,0,0,0.5) ;
-      width:100% ;
-      height:100% ;
-      ul{
-        padding:0 ;
-        list-style:none ;
-        display:flex ;
-        justify-content:center ;
-        flex-wrap:wrap ;
-        gap:2rem;
+    .overlay {
+      position: absolute;
+      top: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      width: 100%;
+      height: 100%;
+      ul {
+        padding: 0;
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 2rem;
         /* height:100% ; */
-        align-items:center ;
+        align-items: center;
         position: absolute;
         bottom: 30%;
-        width:100% !important;
-        li{
-          display:flex ;
-          flex-direction:column ;
+        width: 100% !important;
+        li {
+          display: flex;
+          flex-direction: column;
           /* height:70% ; */
-          align-items:baseline ;
-          justify-content:flex-end ;
+          align-items: baseline;
+          justify-content: flex-end;
 
-          a{
-            text-decoration:none ;
-            font-size:1.5rem;
-            color:#fff ;
+          a {
+            text-decoration: none;
+            font-size: 1.5rem;
+            color: #fff;
 
-            &:hover{
+            &:hover {
               color: red;
             }
           }
@@ -279,66 +278,57 @@ const Container = styled.section`
     }
   }
 
-  .content{
-    width:90% ;
-    margin:5rem auto 0 auto ;
-    display:flex ;
-    flex-direction:column ;
+  .content {
+    width: 90%;
+    margin: 5rem auto 0 auto;
+    display: flex;
+    flex-direction: column;
 
-   .first{
-        span{
+    .first {
+      span {
+        h2 {
+          position: relative;
+          font-size: 1.6rem;
 
-            h2{
-              position:relative ;
-              font-size:1.6rem ;
+          &::before {
+            content: "";
+            border-bottom: 5px solid red;
+            width: 5rem;
+            position: absolute;
+            bottom: 0;
+            top: 30px;
+          }
+        }
+      }
+      h4 {
+        font-size: 1.4rem;
+        line-height: 25px;
+        letter-spacing: 1px;
+        font-weight: 500;
+        font-weight: 900;
+      }
+      button {
+        width: 100%;
+        /* height:4rem ; */
+        font-size: 1.2rem;
+        padding: 10px;
+        background-color: white;
+        border: 2px solid red;
+        color: red;
+      }
+    }
 
-              
-              &::before{
-                content: '';
-                border-bottom: 5px solid red;
-                width: 5rem;
-                position: absolute;
-                bottom: 0;
-                top: 30px;
-              }
-            }
-            }
-            h4{
-                font-size:1.4rem ;
-                line-height:25px ;
-                letter-spacing:1px ;
-                font-weight:500 ;
-                font-weight:900 ;
-              }
-            button{
-              width:100% ;
-              /* height:4rem ; */
-              font-size:1.2rem;
-              padding:10px ;
-              background-color:white;
-              border:2px solid red ;
-              color:red ;
-            }
-   }
+    .conimages {
+      display: grid;
+      grid-template-columns: repeat(3, 20rem);
+      gap: 5rem;
+      justify-content: center;
 
-  .conimages{
-    display:grid ;
-    grid-template-columns:repeat(3,20rem) ;
-    gap:5rem;
-    justify-content: center;
-
-    img{
-      width:100% ;
-      height:100% ;
-      object-fit:cover ;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
     }
   }
-
-   
-   
-  }
-
-
- 
-
-`
+`;
