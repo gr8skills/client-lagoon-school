@@ -1,17 +1,130 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import Backdrop from '../../../../Assets/Backdrop.png'
 import { subRoute } from './Acaitems';
 import Holder from '../../../../Assets/ExplaoreTwo.png'
 import "./fullCalendar.css";
+import {api} from "../../../../misc/api";
 
 export default function AcademicFacilities() {
   const currentPath = window.location.pathname;
 
+    const [pageData, setData] = useState('');
+    const fetchData = () => {
+        api.get('academics/facilities')
+            .then(res => {
+                const abridgeData = res.data;
+                setData(abridgeData);
+            })
+            .catch(console.log);
+
+    };
+    useEffect(() => {
+        fetchData();
+    }, []);
+    console.log(pageData);
+    let f1Image = null;
+    pageData?.other_images_1 ? f1Image=`${process.env.REACT_APP_SERVER_URL}/images/${pageData?.other_images_1}` : f1Image=Holder;
+    let f2Image = null;
+    pageData?.other_images_2 ? f2Image=`${process.env.REACT_APP_SERVER_URL}/images/${pageData?.other_images_2}` : f2Image=Holder;
+    let f3Image = null;
+    pageData?.other_images_3 ? f3Image=`${process.env.REACT_APP_SERVER_URL}/images/${pageData?.other_images_3}` : f3Image=Holder;
+    let f4Image = null;
+    pageData?.other_images_4 ? f4Image=`${process.env.REACT_APP_SERVER_URL}/images/${pageData?.other_images_4}` : f4Image=Holder;
+    let f5Image = null;
+    pageData?.other_images_5 ? f5Image=`${process.env.REACT_APP_SERVER_URL}/images/${pageData?.other_images_5}` : f5Image=Holder;
+    let f6Image = null;
+    pageData?.other_contents_1 ? f6Image=`${process.env.REACT_APP_SERVER_URL}/images/${pageData?.other_contents_1}` : f6Image=Holder;
+    let f7Image = null;
+    pageData?.other_contents_2 ? f7Image=`${process.env.REACT_APP_SERVER_URL}/images/${pageData?.other_contents_2}` : f7Image=Holder;
+    let f8Image = null;
+    pageData?.other_contents_3 ? f8Image=`${process.env.REACT_APP_SERVER_URL}/images/${pageData?.other_contents_3}` : f8Image=Holder;
+    let f9Image = null;
+    pageData?.other_contents_4 ? f9Image=`${process.env.REACT_APP_SERVER_URL}/images/${pageData?.other_contents_4}` : f9Image=Holder;
+    let f10Image = null;
+    pageData?.other_contents_5 ? f10Image=`${process.env.REACT_APP_SERVER_URL}/images/${pageData?.other_contents_5}` : f10Image=Holder;
+    let f11Image = null;
+    pageData?.other_contents_6 ? f11Image=`${process.env.REACT_APP_SERVER_URL}/images/${pageData?.other_contents_6}` : f11Image=Holder;
+    let f12Image = null;
+    pageData?.other_titles_2 ? f12Image=`${process.env.REACT_APP_SERVER_URL}/images/${pageData?.other_titles_2}` : f12Image=Holder;
+
+  let fac1 = {
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+    backgroundImage: `url(${f1Image})`
+  };
+  let fac2 = {
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+    backgroundImage: `url(${f2Image})`
+  };
+  let fac3 = {
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+    backgroundImage: `url(${f3Image})`
+  };
+  let fac4 = {
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+    backgroundImage: `url(${f4Image})`
+  };
+  let fac5 = {
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+    backgroundImage: `url(${f5Image})`
+  };
+  let fac6 = {
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+    backgroundImage: `url(${f6Image})`
+  };
+  let fac7 = {
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+    backgroundImage: `url(${f7Image})`
+  };
+  let fac8 = {
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+    backgroundImage: `url(${f8Image})`
+  };
+  let fac9 = {
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+    backgroundImage: `url(${f9Image})`
+  };
+  let fac10 = {
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+    backgroundImage: `url(${f10Image})`
+  };
+  let fac11 = {
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+    backgroundImage: `url(${f11Image})`
+  };
+  let fac12 = {
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+    backgroundImage: `url(${f12Image})`
+  };
+
   return (
-    <Container>
+    <Container props={pageData}>
       <div className="placeholder2">
-        <img src={Backdrop} alt="placeholder" />
+        <img src={ `${process.env.REACT_APP_SERVER_URL}/images/${pageData?.banner}`??Backdrop} alt="placeholder" />
         <div className="overlay">
           <ul>
             {subRoute?.map((sub, idx) => {
@@ -54,51 +167,54 @@ export default function AcademicFacilities() {
       <div className="content">
         <div className="first">
           <span>
-            <h2>Academic Facility</h2>
+            <h2>{pageData?.other_titles_1}</h2>
           </span>
 
-          <h4>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
-          </h4>
+    <h4>
+
+    <span dangerouslySetInnerHTML={{__html:pageData?.content}}></span>
+
+    </h4>
+
+
+
+
         </div>
         <div className="conimages">
-          <div className="fac1">
+          <div style={fac1}>
             <h4>Computer lab</h4>
           </div>
-          <div className="fac2">
+          <div style={fac2}>
             <h4>Facility</h4>
           </div>{" "}
-          <div className="fac12">
+          <div style={fac12}>
             <h4>Facility</h4>
           </div>{" "}
-          <div className="fac3">
+          <div className="fac3" style={fac3}>
             <h4>Facility</h4>
           </div>{" "}
-          <div className="fac4">
+          <div className="fac4" style={fac4}>
             <h4>Facility</h4>
           </div>{" "}
-          <div className="fac5">
+          <div className="fac5" style={fac5}>
             <h4>Facility</h4>
           </div>{" "}
-          <div className="fac6">
+          <div className="fac6" style={fac6}>
             <h4>Facility</h4>
           </div>{" "}
-          <div className="fac7">
+          <div className="fac7" style={fac7}>
             <h4>Facility</h4>
           </div>{" "}
-          <div className="fac8">
+          <div className="fac8" style={fac8}>
             <h4>Facility</h4>
           </div>{" "}
-          <div className="fac9">
+          <div className="fac9" style={fac9}>
             <h4>Facility</h4>
           </div>{" "}
-          <div className="fac10">
+          <div className="fac10" style={fac10}>
             <h4>Facility</h4>
           </div>{" "}
-          <div className="fac11">
+          <div className="fac11" style={fac11}>
             <h4>Facility</h4>
           </div>{" "}
         </div>
@@ -111,6 +227,8 @@ export default function AcademicFacilities() {
 
 
 const Container = styled.section`
+
+ 
 
   .placeholder2{
     height:37rem ;

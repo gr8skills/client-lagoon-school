@@ -172,7 +172,7 @@ export default function FullCalendr() {
                     <h6>
                       {" "}
                       <input type="checkbox" />
-                      Atheletic Activities
+                      Athletic Activities
                     </h6>
                   </li>
                 </ul>
