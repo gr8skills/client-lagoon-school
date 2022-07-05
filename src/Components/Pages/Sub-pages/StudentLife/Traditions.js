@@ -37,10 +37,7 @@ export default function Traditions() {
   return (
     <Container>
       <div className="placeholder2">
-        <img src={
-            `${process.env.REACT_APP_SERVER_URL}/images/${noteData.banner}` ??
-            Backdrop
-          } alt="placeholder" />
+        <img src={Backdrop} alt="placeholder" />
         <div className="overlay">
           <ul>
                 {subRoute?.map((sub, idx)=>{
@@ -63,9 +60,8 @@ export default function Traditions() {
           <span>
             <h2>Lagoon Traditions</h2>
           </span>
-          dangerouslySetInnerHTML={{ __html: noteData?.content }}
 
-          {/* <h4>
+          <h4>
             Discover what it’s like to be an Lagoon Girl— a young woman who
             strives to develop her character, intellect, and faith on her way to
             becoming a leader. Life at Lagoon is full of fun traditions that
@@ -73,7 +69,7 @@ export default function Traditions() {
             friendship and school pride. Over 20 years since the school’s
             founding, these traditions continue to shape Lagoon's distinctive
             identity.
-          </h4> */}
+          </h4>
         </div>{" "}
       </div>
       {imgList.map(({ id, title, image_path }) => {
@@ -98,7 +94,7 @@ export default function Traditions() {
                       {" "}
                       <div className="col-md-12 pic"
                        
-                       style={{
+                      style={{
                         backgroundImage: `url(${process.env.REACT_APP_SERVER_URL}/images/${image_path})`,
                         backgroundRepeat: "no-repeat",
                         backgroundSize: "cover",
