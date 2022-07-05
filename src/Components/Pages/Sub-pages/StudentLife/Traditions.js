@@ -1,17 +1,46 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Backdrop from '../../../../Assets/Backdrop.png'
 import { subRoute } from "./LifeItems";
 import Holder from '../../../../Assets/ExplaoreTwo.png'
 import { Link } from "react-router-dom";
+import { api } from "../../../../misc/api";
 
 export default function Traditions() {
   const currentPath = window.location.pathname;
+  const [pageData, setPageData] = useState("");
+  const [imgList, setImgList] = useState([]);
+  const [noteData, setNoteData] = useState({});
+
+  const fetchPageData = () => {
+    api
+      .get("tradition-index")
+      .then((res) => {
+        const abridgePageData = res.data;
+        setPageData(abridgePageData);
+      })
+      .catch(console.log);
+  };
+  useEffect(() => {
+    fetchPageData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  useEffect(() => {
+    if (pageData !== "") {
+      setImgList(pageData.images);
+      setNoteData(pageData.note);
+    }
+  }, [pageData]);
+
+  console.log(imgList);
 
   return (
     <Container>
       <div className="placeholder2">
-        <img src={Backdrop} alt="placeholder" />
+        <img src={
+            `${process.env.REACT_APP_SERVER_URL}/images/${noteData.banner}` ??
+            Backdrop
+          } alt="placeholder" />
         <div className="overlay">
           <ul>
                 {subRoute?.map((sub, idx)=>{
@@ -34,8 +63,9 @@ export default function Traditions() {
           <span>
             <h2>Lagoon Traditions</h2>
           </span>
+          dangerouslySetInnerHTML={{ __html: noteData?.content }}
 
-          <h4>
+          {/* <h4>
             Discover what it’s like to be an Lagoon Girl— a young woman who
             strives to develop her character, intellect, and faith on her way to
             becoming a leader. Life at Lagoon is full of fun traditions that
@@ -43,69 +73,44 @@ export default function Traditions() {
             friendship and school pride. Over 20 years since the school’s
             founding, these traditions continue to shape Lagoon's distinctive
             identity.
-          </h4>
+          </h4> */}
         </div>{" "}
       </div>
-      <div className="trads col-md-12 flexy">
-        <div className="col-md-2">&nbsp;</div>
-        <div className="col-md-7 ">
-          <div className="col-md-12 big">
-            <h2>
-              <span>ALL-S</span>CHOOL SERVICE DAY
-            </h2>
+      {imgList.map(({ id, title, image_path }) => {
+            return (
+              <div className="trads col-md-12 flexy">
+                <div className="col-md-2">&nbsp;</div>
+                <div className="col-md-7 ">
+                  <div className="col-md-12 big">
+                    <h2>
+                      
+                      <span>{title.substring(0,5)}</span>{title.substring(5)}
+                    </h2>
 
-            <div className="col-md-10 pic">
-              {" "}
-              <div className="col-md-12 pic"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="trads col-md-12 flexy">
-        <div className="col-md-2">&nbsp;</div>
-        <div className="col-md-7 ">
-          <div className="col-md-12 big">
-            <h2>
-              <span>ALL-S</span>CHOOL SERVICE DAY
-            </h2>
-
-            <div className="col-md-10 pic">
-              {" "}
-              <div className="col-md-12 pic"></div>
-            </div>
-          </div>
-        </div>
-      </div>{" "}
-      <div className="trads col-md-12 flexy">
-        <div className="col-md-2">&nbsp;</div>
-        <div className="col-md-7 ">
-          <div className="col-md-12 big">
-            <h2>
-              <span>ALL-S</span>CHOOL SERVICE DAY
-            </h2>
-
-            <div className="col-md-10 pic">
-              {" "}
-              <div className="col-md-12 pic"></div>
-            </div>
-          </div>
-        </div>
-      </div>{" "}
-      <div className="trads col-md-12 flexy">
-        <div className="col-md-2">&nbsp;</div>
-        <div className="col-md-7 ">
-          <div className="col-md-12 big">
-            <h2>
-              <span>ALL-S</span>CHOOL SERVICE DAY
-            </h2>
-
-            <div className="col-md-10 pic">
-              {" "}
-              <div className="col-md-12 pic"></div>
-            </div>
-          </div>
-        </div>
-      </div>
+                    <div className="col-md-10 pic"
+                     
+                     style={{
+                      backgroundImage: `url(${process.env.REACT_APP_SERVER_URL}/images/${image_path})`,
+                      backgroundRepeat: "no-repeat",
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                    }}>
+                      {" "}
+                      <div className="col-md-12 pic"
+                       
+                       style={{
+                        backgroundImage: `url(${process.env.REACT_APP_SERVER_URL}/images/${image_path})`,
+                        backgroundRepeat: "no-repeat",
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                      }}></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+      
       <div className="ali">
         <Link to="Video.mp3">
           <button className="meet">Meet an Alumni</button>
