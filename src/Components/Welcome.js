@@ -141,7 +141,7 @@ export default function Welcome() {
                 <div className='expcov' data-aos="zoom-in-right">
                     {Explore2.map((exp, index)=>{
                         return (
-                          <Link to={exp.link}>
+                          <Link to={exp.link} className='linkText'>
                             <div key={index}>
                               <img src={exp.Image} alt="" />
                               <div>
@@ -374,6 +374,7 @@ const ExploreCov = styled.div`
     display: flex;
     justify-content: space-between;
     margin-top: 60px;
+    
 
     div {
       display: flex;
@@ -404,6 +405,10 @@ const ExploreCov = styled.div`
        
       }
     }
+  }
+  
+  .linkText {
+    text-decoration: none
   }
 
   @media screen and (min-width: 280px) and (max-width: 1080px) {

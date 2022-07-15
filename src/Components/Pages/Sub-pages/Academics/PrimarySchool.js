@@ -83,6 +83,7 @@ export default function PrimarySchool() {
       <div className="tent">
         <div className="first">
           <span>
+            {/*<h2>Primary Section</h2>*/}
             <h2>{noteData?.other_titles_1}</h2>
           </span>
 
@@ -95,7 +96,7 @@ export default function PrimarySchool() {
             intellectual carefulness. They research problems, brainstorm
             solutions, create prototypes, test and revise. */}
             <span
-              dangerouslySetInnerHTML={{ __html: noteData?.content }}
+              dangerouslySetInnerHTML={{ __html: noteData?.other_titles_2 }}
             ></span>
           </h4>
         </div>
@@ -154,24 +155,29 @@ export default function PrimarySchool() {
             alt=""
             className=" col-md-12"
           />
-          <p>
-            Small classes averaging 15 encourage a high level of rapport between
-            students and teachers. Our middle school faculty know how to tap and
-            channel the intellectual energy and passion of middle school girls.
-          </p>
-          <p>
-            During the primary school years, students gradually take ownership
-            of their learning. They grow in self-knowledge, build and value
-            friendships, and come to understand their responsibility to each
-            other as well as to the wider community.
-          </p>
-          <p>
-            Our primary school curriculum sets girls up for success in our
-            rigorous upper school college preparatory, honors lists, while a
-            wide variety of{" "}
-            <a href="/academics/club_&_activities">curricular activities</a>{" "}
-            allows them to explore and develop interests.
-          </p>
+
+          <span
+              dangerouslySetInnerHTML={{ __html: noteData?.content }}
+          ></span>
+
+          {/*<p>*/}
+          {/*  Small classes averaging 15 encourage a high level of rapport between*/}
+          {/*  students and teachers. Our middle school faculty know how to tap and*/}
+          {/*  channel the intellectual energy and passion of middle school girls.*/}
+          {/*</p>*/}
+          {/*<p>*/}
+          {/*  During the primary school years, students gradually take ownership*/}
+          {/*  of their learning. They grow in self-knowledge, build and value*/}
+          {/*  friendships, and come to understand their responsibility to each*/}
+          {/*  other as well as to the wider community.*/}
+          {/*</p>*/}
+          {/*<p>*/}
+          {/*  Our primary school curriculum sets girls up for success in our*/}
+          {/*  rigorous upper school college preparatory, honors lists, while a*/}
+          {/*  wide variety of{" "}*/}
+          {/*  <a href="/academics/club_&_activities">curricular activities</a>*/}
+          {/*  allows them to explore and develop interests.*/}
+          {/*</p>*/}
         </div>
       </div>
     </Container>

@@ -133,8 +133,8 @@ const SlickContent = styled.div`
       }
 
       p {
-        font-size: clamp(2.2rem, 6vw, 1.7rem);
-        font-weight: 300;
+        font-size: clamp(1.8rem, 5vw, 1.3rem);
+        font-weight: 200;
       }
     }
   }

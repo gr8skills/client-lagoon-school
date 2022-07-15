@@ -105,13 +105,13 @@ export default function Calendar() {
                         <img src={ent.holder} alt="holder" />
                       </div>
 
-                      <Link to={{pathname:'/about/news-detailed/slug?', query:{ent}}}  >
+                      {/*<Link to={{pathname:'/about/news-detailed/slug?', query:{ent}}}  >*/}
                         <div className="pesp">
                           <h4>{ent.header}</h4>
                           <label>{ent.date}</label>
                           <p>{ent.ceremony}</p>
                         </div>
-                      </Link>
+                      {/*</Link>*/}
 
                     </div>
                 );

@@ -36,22 +36,22 @@ export default function Images() {
                 </div>
             </Header>
             <ImageSection>
-                {splash.map((spl,index)=>{
+                {splash.slice(0,7).map((spl,index)=>{
                     let num2text = '';
-                    console.log(spl)
-                    if (spl.position === 1){
+                    console.log(index)
+                    if (index+1 === 1){
                         num2text = 'one'
-                    }else if(spl.position === 2){
+                    }else if(index+1 === 2){
                         num2text = 'two'
-                    }else if(spl.position === 3){
+                    }else if(index+1 === 3){
                         num2text = 'three'
-                    }else if(spl.position === 4){
+                    }else if(index+1 === 4){
                         num2text = 'four'
-                    }else if(spl.position === 5){
+                    }else if(index+1 === 5){
                         num2text = 'five'
-                    }else if(spl.position === 6){
+                    }else if(index+1 === 6){
                         num2text = 'six'
-                    }else if(spl.position === 7){
+                    }else if(index+1 === 7){
                         num2text = 'seven'
                     }
                     return (

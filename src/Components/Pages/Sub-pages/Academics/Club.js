@@ -67,7 +67,7 @@ export default function Club() {
       <div className="content">
         <div className="first">
           <span>
-            <h2>Clubs and Activies</h2>
+            <h2>Clubs and Activities</h2>
           </span>
           <div>
             <h4>
@@ -81,8 +81,8 @@ export default function Club() {
             </h4>
           </div>
           <div className="accordion">
-            {accordionData2.map(({ title, content }) => (
-              <Accordion title={title} content={content} />
+            {accordionData2.map(({ title, content, link }) => (
+              <Accordion title={title} content={content} link={link} />
             ))}
           </div>
         </div>

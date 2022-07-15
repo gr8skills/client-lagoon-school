@@ -49,11 +49,12 @@ export default function Hero() {
     <Section>
       <BackgroundCover>
         <img
-          src={
-            settings?.splash_screen_image
-              ? `${process.env.REACT_APP_SERVER_URL}/images/${settings?.splash_screen_image}`
-              : Background
-          }
+          src={`${process.env.REACT_APP_SERVER_URL}/images/${settings?.splash_screen_image}`}
+          // src={
+          //   settings?.splash_screen_image
+          //     ? `${process.env.REACT_APP_SERVER_URL}/images/${settings?.splash_screen_image}`
+          //     : Background
+          // }
           alt=""
         />
         {/* <video src={Video} autoPlay loop muted /> */}
